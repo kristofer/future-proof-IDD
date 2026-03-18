@@ -28,6 +28,33 @@ python3 notes0.py create
 
 ```
 
+### notes2.py — adds `read` command
+
+`notes2.py` extends `notes1.py` with the ability to display the full contents of a
+specific note by its list index.
+
+```bash
+# Setup: copy sample notes into the notes directory
+mkdir -p ~/.notes/notes
+cp test-notes/*.md ~/.notes/notes/
+
+# List all notes (shows index numbers)
+python3 python/notes2.py list
+
+# Read note number 1
+python3 python/notes2.py read 1
+
+# Read note number 3
+python3 python/notes2.py read 3
+
+# Show help
+python3 python/notes2.py help
+```
+
+The `read` command displays the note's metadata (title, author, created/modified dates,
+tags, status, priority) followed by the full note body, all clearly separated with
+divider lines.
+
 ## Phase 2 Focus
 
 Add REST + web support for both:
