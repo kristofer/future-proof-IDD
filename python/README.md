@@ -55,6 +55,38 @@ The `read` command displays the note's metadata (title, author, created/modified
 tags, status, priority) followed by the full note body, all clearly separated with
 divider lines.
 
+### notes3.py — adds `create` command
+
+`notes3.py` extends `notes2.py` with the ability to create a new note by launching your
+`$EDITOR` with a pre-filled YAML front-matter template.  When you save and quit the
+editor the note is written to `~/.notes/notes/` with a date-based filename derived from
+the title you provided.
+
+The YAML template is loaded from `docs/note-template.md` (relative to the repository
+root).  If that file is not found an inline fallback template is used instead.
+
+```bash
+# Create a new note (opens $EDITOR with a YAML template)
+python3 python/notes3.py create
+
+# List all notes (shows index numbers, including any you just created)
+python3 python/notes3.py list
+
+# Read note number 1
+python3 python/notes3.py read 1
+
+# Show help
+python3 python/notes3.py help
+```
+
+The `create` command:
+1. Reads `docs/note-template.md` and fills in the current UTC timestamp.
+2. Writes the template to a temporary `.md` file.
+3. Opens the file in `$EDITOR` (falls back to `$VISUAL`, then `vi`).
+4. After the editor exits, saves the note to `~/.notes/notes/<date>-<slug>.md` where
+   `<date>` is today's date and `<slug>` is a URL-safe version of the title.
+5. If no changes were made the temporary file is discarded.
+
 ## Phase 2 Focus
 
 Add REST + web support for both:
